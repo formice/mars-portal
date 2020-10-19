@@ -815,12 +815,12 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="name">您的名字</label>
-                  <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <input type="text" name="name" class="form-control" id="name"  data-msg="Please enter at least 1 chars" />
                   <div class="validate"></div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="name">您的手机号码</label>
-                  <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />
+                  <input type="text" class="form-control" name="mobile" id="mobile"  data-msg="Please enter a valid mobile" />
                   <div class="validate"></div>
                 </div>
               </div>
@@ -831,7 +831,7 @@
               </div>-->
               <div class="form-group">
                 <label for="name">内容</label>
-                <textarea class="form-control" name="message" rows="10" data-rule="required" data-msg="Please write something for us"></textarea>
+                <textarea class="form-control" id="content" name="message" rows="10" data-msg="Please write something for us"></textarea>
                 <div class="validate"></div>
               </div>
               <div class="mb-3">
@@ -839,7 +839,7 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit">提 交</button></div>
+              <div class="text-center"><button id="submitContactUs" type="submit">提 交</button></div>
             </form>
           </div>
 
@@ -940,6 +940,31 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+    $(function(){
+      $('#submitContactUs').click(function () {
+        $.ajax({
+          url:'http://localhost:8080/portal/contactus',
+          method:'post',
+          data:data.field,
+          dataType:'JSON',
+          success:function(res){
+            if(res.code='200'){
+              console.log(res);
+              //$('#carousel-item').css("height","50px");
+              alert('提交成功');
+            } else {
+              alert(res.msg);
+            }
+          },
+          error:function (data) {
+
+          }
+        }) ;
+      });
+
+    });
+  </script>
 
 </body>
 
